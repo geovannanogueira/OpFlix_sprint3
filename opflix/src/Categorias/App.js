@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom'
 
 import logo from '../assets/Logos/vermelho.png';
 import Axios from 'axios';
+import '../Categorias/categorias.css';
 
 export default class Categorias extends React.Component {
 
     constructor() {
         super();
         this.state = {
+            lista: [],
             nome: "",
             duracao: "",
             classificacao: "",
@@ -18,7 +20,7 @@ export default class Categorias extends React.Component {
             categoria: "",
             tipo: "",
             imagem: "",
-            lista: []
+            
         }
     }
 
@@ -117,52 +119,100 @@ export default class Categorias extends React.Component {
             })
     }
 
+
+    componentDidMount(){
+        this.ListarCategorias();
+    }
+
+
+    ListarCategorias = () =>{
+        Axios.get('http://localhost:5000/api/generos')
+        .then (response =>{
+            this.setState({lista: response.data})
+            console.log(response.data);
+
+        })
+        .catch(erro=> console.log(erro))
+    }
+
+
     render() {
         return (
-            <div className="App">
+            <div className="Appc">
                 <header className="container">
                     <img src={logo} />
-                    <nav className="barra_nav">
-                        <Link to='/categorias'>Categorias</Link>
-                        <Link to='/lancamentos'>Lançamentos</Link>
-                    </nav>
+                    {/* <nav className="barra_nav"> */}
+                        <Link id="Link" to='/categorias'>Categorias</Link>
+                        <Link id="Link" to='/lancamentos'>Lançamentos</Link>
+                    {/* </nav> */}
                 </header>
                 <section className="conteudo">
-                    <h1>Categorias</h1>
-                    <h1>Lançamentos</h1>
+                    {/* <h1>Categorias</h1> */}
+                    {/* <h1 id="nome">Cadastro de Lançamentos</h1> */}
+                    <div id="bbb">
+                    <p id="nome">Cadastro de Lançamentos</p>
+                    </div>
+                    <div id="loirao">
                     <form onSubmit={this.Cadastrar}>
-
-                        <div>
-                            <input className="input_cadastroL" placeholder="Nome" type="text" name="username" id="cadastro_nomeL" onChange={this.estadoNome} />
+                        <div id="input1">
+                            <input placeholder="Nome" type="text" name="username" onChange={this.estadoNome} />
                         </div>
-                        <div>
-                            <input className="input_cadastroL" placeholder="Duracao" type="number" name="username" id="cadastro_duracaoL" onChange={this.estadoDuracao} />
+                        <div id="input2">
+                            <input  placeholder="Duracao" type="number" name="username" onChange={this.estadoDuracao} />
                         </div>
-                        <div>
-                            <input className="input_cadastroL" placeholder="Classificacao" type="text" name="username" id="cadastro_classificacaoL" onChange={this.estadoClassificacao} />
+                        <div id="input3">
+                            <input  placeholder="Classificacao" type="text" name="username"  onChange={this.estadoClassificacao} />
                         </div>
-                        <div>
-                            <input className="input_cadastroL" placeholder="Data de Lancamento" type="date" name="date" id="cadastro_dataL" onChange={this.estadoDataLancamento} />
+                        <div id="input4">
+                            <input  placeholder="Data de Lancamento" type="date" name="date"  onChange={this.estadoDataLancamento} />
                         </div>
-                        <div>
-                            <input className="input_cadastroL" placeholder="Sinopse" type="text" name="username" id="cadastro_sinopseL" onChange={this.estadoSinopse} />
+                        <div id="input5">
+                            <input  placeholder="Sinopse" type="text" name="username"  onChange={this.estadoSinopse} />
                         </div>
-                        <div>
-                            <input className="input_cadastroL" placeholder="Plataforma" type="number" name="username" id="cadastro_plataformaL" onChange={this.estadoPlataforma} />
+                        <div id="input6"> 
+                            <input  placeholder="Plataforma" type="number" name="username"  onChange={this.estadoPlataforma} />
                         </div>
-                        <div>
-                            <input className="input_cadastroL" placeholder="Genero" type="number" name="username" id="cadastro_generoL" onChange={this.estadoCategoria} />
+                        <div id="input7">
+                            <input  placeholder="Genero" type="number" name="username" onChange={this.estadoCategoria} />
                         </div>
-                        <div>
-                            <input className="input_cadastroL" placeholder="Tipo" type="number" name="text" id="cadastro_tipoL" onChange={this.estadoTipo} />
+                        <div id="input7">
+                            <input  placeholder="Tipo" type="number" name="text" onChange={this.estadoTipo} />
                         </div>
-                        <div>
-                            <input className="input_imagemL" placeholder="Imagem" type="" name="text" id="cadastro_imagemL" onChange={this.estadoImagem} />
+                        <div id="input8">
+                            <input placeholder="Imagem" type="" name="text" onChange={this.estadoImagem} />
                         </div>
                         <div className="botaoL">
                             <button className="btn_cadastroL" id="botao_cadastroL">Cadastrar Lançamento</button>
                         </div>
                     </form>
+                    </div>
+                </section>
+
+
+
+                <section id="categorias">
+                <table id="tabela-lista">
+                    <thead>
+                        <tr>
+                           
+                            <th id="sharp">#</th>
+                            <th id="cat">Categorias</th>
+                            
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabela-lista-corpo">
+                        {this.state.lista.map(element => {   
+                                return (
+                                    <tr key={element.idGenero}>
+                                        <td>{element.idGenero}</td>
+                                        <td>{element.nome}</td>
+                                    </tr>
+                                )
+                            }
+                        )}
+                    </tbody>
+                </table>
                 </section>
             </div>
         );

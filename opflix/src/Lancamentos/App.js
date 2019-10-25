@@ -4,6 +4,7 @@ import Axios from 'axios'
 
 import { parseJwt } from '../services/auth.js'
 import logo from '../assets/Logos/vermelho.png';
+import '../Lancamentos/lancamentos.css';
 
 export default class Lancamentos extends React.Component {
 
@@ -32,21 +33,24 @@ export default class Lancamentos extends React.Component {
 
     render() {
         return (
-            <div className="App">
+            <div className="Appl">
                 <header className="container">
-                    <img src={logo} />
-                    <nav className="barra_nav">
-                        <Link to='/categorias'>Categorias</Link>
-                        <Link to='/lancamentos'>Lançamentos</Link>
-                    </nav>
+                    <img  id="logotipo" src={logo} />
+                    {/* <nav className="barra_nav"> */}
+                        <Link id="Link" to='/categorias'>Categorias</Link>
+                        <Link id="Link" to='/lancamentos'>Lançamentos</Link>
+                    {/* </nav> */}
                 </header>
                 <section className="conteudo">
-                    Olá, {this.state.emailUsuario}
+                    <div id="ihhmiga">
+                    <h1 id="oi">Olá, {this.state.emailUsuario}</h1>
+                    </div>
+                   
 
                     <h1>Tendências</h1>
 
-                    <table className="table table-sm table-striped table-hover">
-                        <thead className="thead-dark">
+                    <table className="table">
+                        <thead className="tableh">
                             <tr>
                                 <th scope="col">Nome</th>
                                 <th scope="col">Duração por minuto</th>
